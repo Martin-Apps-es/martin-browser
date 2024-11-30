@@ -6,109 +6,109 @@
   <title>Martín Browser</title>
   <style>
     /* Estilos generales */
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-}
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
 
-h1 {
-  color: #003366;
-  margin: 20px 0;
-}
+    h1 {
+      color: #003366;
+      margin: 20px 0;
+    }
 
-h2 {
-  color: #333;
-}
+    h2 {
+      color: #333;
+    }
 
-/* Contenedor principal para barra de búsqueda */
-.search-bar {
-  display: flex;
-  width: 100%; /* Ocupa todo el ancho */
-  margin: 0; /* Sin márgenes */
-  padding: 0; /* Sin relleno */
-  gap: 10px; /* Espacio entre input y botón */
-  box-sizing: border-box;
-  padding: 10px; /* Espacio interno para mantener consistencia */
-}
+    /* Contenedor principal para barra de búsqueda */
+    .search-bar {
+      display: flex;
+      width: 100%; /* Ocupa todo el ancho de la pantalla */
+      padding: 10px; /* Espaciado interno */
+      gap: 10px; /* Separación entre el input y el botón */
+      box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
+    }
 
-#searchInput {
-  flex: 1; /* Ocupa todo el espacio disponible */
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px; /* Bordes redondeados */
-  font-size: 16px;
-}
+    #searchInput {
+      flex: 1; /* Ocupa todo el espacio disponible */
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px; /* Bordes redondeados */
+      font-size: 16px;
+      box-sizing: border-box; /* Evita desbordamientos al ajustar tamaño */
+    }
 
-#searchBtn {
-  background-color: #003366;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px; /* Bordes redondeados */
-  cursor: pointer;
-  font-size: 16px;
-}
+    #searchBtn {
+      background-color: #003366;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px; /* Bordes redondeados */
+      cursor: pointer;
+      font-size: 16px;
+      white-space: nowrap; /* Evita que el texto se corte en dos líneas */
+    }
 
-#searchBtn:hover {
-  background-color: #00509e;
-}
+    #searchBtn:hover {
+      background-color: #00509e;
+    }
 
-/* Selector del buscador */
-.selector {
-  margin: 20px 0;
-}
+    /* Selector del buscador */
+    .selector {
+      margin: 20px 0;
+    }
 
-#searchEngine {
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
+    #searchEngine {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
 
-/* Noticias */
-.news {
-  margin: 20px;
-}
+    /* Noticias */
+    .news {
+      margin: 20px;
+    }
 
-.news-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 10px 0;
-}
+    .news-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f0f0f0;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
 
-.view-more {
-  background-color: #003366;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
+    .view-more {
+      background-color: #003366;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-.view-more:hover {
-  background-color: #00509e;
-}
+    .view-more:hover {
+      background-color: #00509e;
+    }
 
-/* Responsividad */
-@media (max-width: 600px) {
-  .search-bar {
-    flex-direction: column; /* Input y botón en columnas */
-    gap: 10px; /* Espacio entre filas */
-  }
+    /* Responsividad */
+    @media (max-width: 600px) {
+      .search-bar {
+        flex-wrap: nowrap; /* Evita que los elementos salten a la siguiente línea */
+        justify-content: space-between; /* Asegura que el input y botón ocupen su lugar */
+      }
 
-  #searchInput {
-    width: 100%; /* Input ocupa todo el ancho */
-  }
+      #searchInput {
+        width: calc(100% - 90px); /* Calcula el ancho del input para dejar espacio al botón */
+      }
 
-  #searchBtn {
-    width: 100%; /* Botón ocupa todo el ancho */
-  }
-}
+      #searchBtn {
+        width: 80px; /* Tamaño fijo para el botón en pantallas pequeñas */
+      }
+    }
   </style>
 </head>
 <body>
@@ -145,36 +145,36 @@ h2 {
 
   <script>
     // Función principal para realizar la búsqueda o redirección
-function handleSearch() {
-  const searchInput = document.getElementById("searchInput").value.trim();
-  const searchEngine = document.getElementById("searchEngine").value;
+    function handleSearch() {
+      const searchInput = document.getElementById("searchInput").value.trim();
+      const searchEngine = document.getElementById("searchEngine").value;
 
-  // Comprobar si es una URL válida
-  const isURL = searchInput.match(/^(https?:\/\/)?(www\.)?[\w-]+\.[a-z]{2,}/);
+      // Comprobar si es una URL válida
+      const isURL = searchInput.match(/^(https?:\/\/)?(www\.)?[\w-]+\.[a-z]{2,}/);
 
-  if (isURL) {
-    // Si es una URL válida, añadir https:// si no está incluido
-    const formattedURL = searchInput.startsWith("http://") || searchInput.startsWith("https://")
-      ? searchInput
-      : `https://${searchInput}`;
-    window.location.href = formattedURL;
-  } else {
-    // Si no es una URL, realizar una búsqueda con el buscador seleccionado
-    const searchURL = `${searchEngine}${encodeURIComponent(searchInput)}`;
-    window.location.href = searchURL;
-  }
-}
+      if (isURL) {
+        // Si es una URL válida, añadir https:// si no está incluido
+        const formattedURL = searchInput.startsWith("http://") || searchInput.startsWith("https://")
+          ? searchInput
+          : `https://${searchInput}`;
+        window.location.href = formattedURL;
+      } else {
+        // Si no es una URL, realizar una búsqueda con el buscador seleccionado
+        const searchURL = `${searchEngine}${encodeURIComponent(searchInput)}`;
+        window.location.href = searchURL;
+      }
+    }
 
-// Asignar evento al botón "IR"
-document.getElementById("searchBtn").addEventListener("click", handleSearch);
+    // Asignar evento al botón "IR"
+    document.getElementById("searchBtn").addEventListener("click", handleSearch);
 
-// Asignar evento para detectar "Enter" en el campo de texto
-document.getElementById("searchInput").addEventListener("keypress", (event) => {
-  if (event.key === "Enter") {
-    event.preventDefault(); // Evita comportamientos no deseados
-    handleSearch(); // Llama a la función como si se hubiese pulsado el botón
-  }
-});
+    // Asignar evento para detectar "Enter" en el campo de texto
+    document.getElementById("searchInput").addEventListener("keypress", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault(); // Evita comportamientos no deseados
+        handleSearch(); // Llama a la función como si se hubiese pulsado el botón
+      }
+    });
   </script>
 </body>
 </html>
