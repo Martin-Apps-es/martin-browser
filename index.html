@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Martín Browser</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: #003366;
+  margin-top: 20px;
+}
+
+.search-bar {
+  margin: 20px 0;
+}
+
+#searchInput {
+  width: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#searchBtn {
+  background-color: #003366;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#searchBtn:hover {
+  background-color: #00509e;
+}
+
+.selector {
+  margin: 20px 0;
+}
+
+#searchEngine {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.news {
+  margin: 20px;
+}
+
+.news-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.view-more {
+  background-color: #003366;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.view-more:hover {
+  background-color: #00509e;
+}
+  </style>
+</head>
+<body>
+  <h1>Martín Browser</h1>
+
+  <div class="search-bar">
+    <input id="searchInput" type="text" placeholder="Introduce tu URL o tu búsqueda">
+    <button id="searchBtn">IR</button>
+  </div>
+
+  <div class="selector">
+    <h2>Selecciona un buscador</h2>
+    <select id="searchEngine">
+      <option value="https://www.google.com/search?q=">Google</option>
+      <option value="https://www.bing.com/search?q=">Bing</option>
+      <option value="https://duckduckgo.com/?q=">DuckDuckGo</option>
+    </select>
+  </div>
+
+  <div class="news">
+    <h2>Noticias</h2>
+    <div class="news-item">
+      <p>Se lanza un nuevo navegador para teléfonos</p>
+      <button class="view-more">Ver más</button>
+    </div>
+    <div class="news-item">
+      <p>Nueva versión de iOS para los nuevos iPhones</p>
+      <button class="view-more">Ver más</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("searchBtn").addEventListener("click", () => {
+  const searchInput = document.getElementById("searchInput").value.trim();
+  const searchEngine = document.getElementById("searchEngine").value;
+
+  // Expresión regular para detectar si es una URL válida
+  const urlPattern = /^(https?:\/\/)?(www\.)?[\w-]+\.[\w.-]+$/;
+
+  if (urlPattern.test(searchInput)) {
+    // Es una URL válida
+    const formattedURL = searchInput.startsWith("http://") || searchInput.startsWith("https://")
+      ? searchInput
+      : `https://${searchInput}`;
+    window.location.href = formattedURL; // Redirigir a la URL
+  } else {
+    // Si no es una URL, realizar búsqueda en el motor seleccionado
+    const searchURL = `${searchEngine}${encodeURIComponent(searchInput)}`;
+    window.location.href = searchURL;
+  }
+});
+  </script>
+</body>
+</html>
