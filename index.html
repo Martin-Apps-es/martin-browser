@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Martín Browser</title>
   <style>
-    body {
+    /* Estilos generales */
+body {
   font-family: Arial, sans-serif;
   text-align: center;
   margin: 0;
@@ -14,18 +15,30 @@
 
 h1 {
   color: #003366;
-  margin-top: 20px;
-}
-
-.search-bar {
   margin: 20px 0;
 }
 
+h2 {
+  color: #333;
+}
+
+/* Contenedor principal para barra de búsqueda */
+.search-bar {
+  display: flex;
+  width: 100%; /* Ocupa todo el ancho */
+  margin: 0; /* Sin márgenes */
+  padding: 0; /* Sin relleno */
+  gap: 10px; /* Espacio entre input y botón */
+  box-sizing: border-box;
+  padding: 10px; /* Espacio interno para mantener consistencia */
+}
+
 #searchInput {
-  width: 200px;
+  flex: 1; /* Ocupa todo el espacio disponible */
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 5px; /* Bordes redondeados */
+  font-size: 16px;
 }
 
 #searchBtn {
@@ -33,14 +46,16 @@ h1 {
   color: white;
   padding: 10px 15px;
   border: none;
-  border-radius: 5px;
+  border-radius: 5px; /* Bordes redondeados */
   cursor: pointer;
+  font-size: 16px;
 }
 
 #searchBtn:hover {
   background-color: #00509e;
 }
 
+/* Selector del buscador */
 .selector {
   margin: 20px 0;
 }
@@ -51,6 +66,7 @@ h1 {
   border: 1px solid #ccc;
 }
 
+/* Noticias */
 .news {
   margin: 20px;
 }
@@ -77,16 +93,34 @@ h1 {
 .view-more:hover {
   background-color: #00509e;
 }
+
+/* Responsividad */
+@media (max-width: 600px) {
+  .search-bar {
+    flex-direction: column; /* Input y botón en columnas */
+    gap: 10px; /* Espacio entre filas */
+  }
+
+  #searchInput {
+    width: 100%; /* Input ocupa todo el ancho */
+  }
+
+  #searchBtn {
+    width: 100%; /* Botón ocupa todo el ancho */
+  }
+}
   </style>
 </head>
 <body>
   <h1>Martín Browser</h1>
 
+  <!-- Barra de búsqueda -->
   <div class="search-bar">
     <input id="searchInput" type="text" placeholder="Introduce tu URL o tu búsqueda">
     <button id="searchBtn">IR</button>
   </div>
 
+  <!-- Selector del buscador -->
   <div class="selector">
     <h2>Selecciona un buscador</h2>
     <select id="searchEngine">
@@ -96,6 +130,7 @@ h1 {
     </select>
   </div>
 
+  <!-- Noticias -->
   <div class="news">
     <h2>Noticias</h2>
     <div class="news-item">
@@ -109,23 +144,35 @@ h1 {
   </div>
 
   <script>
-    document.getElementById("searchBtn").addEventListener("click", () => {
+    // Función principal para realizar la búsqueda o redirección
+function handleSearch() {
   const searchInput = document.getElementById("searchInput").value.trim();
   const searchEngine = document.getElementById("searchEngine").value;
 
-  // Expresión regular para detectar si es una URL válida
-  const urlPattern = /^(https?:\/\/)?(www\.)?[\w-]+\.[\w.-]+$/;
+  // Comprobar si es una URL válida
+  const isURL = searchInput.match(/^(https?:\/\/)?(www\.)?[\w-]+\.[a-z]{2,}/);
 
-  if (urlPattern.test(searchInput)) {
-    // Es una URL válida
+  if (isURL) {
+    // Si es una URL válida, añadir https:// si no está incluido
     const formattedURL = searchInput.startsWith("http://") || searchInput.startsWith("https://")
       ? searchInput
       : `https://${searchInput}`;
-    window.location.href = formattedURL; // Redirigir a la URL
+    window.location.href = formattedURL;
   } else {
-    // Si no es una URL, realizar búsqueda en el motor seleccionado
+    // Si no es una URL, realizar una búsqueda con el buscador seleccionado
     const searchURL = `${searchEngine}${encodeURIComponent(searchInput)}`;
     window.location.href = searchURL;
+  }
+}
+
+// Asignar evento al botón "IR"
+document.getElementById("searchBtn").addEventListener("click", handleSearch);
+
+// Asignar evento para detectar "Enter" en el campo de texto
+document.getElementById("searchInput").addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault(); // Evita comportamientos no deseados
+    handleSearch(); // Llama a la función como si se hubiese pulsado el botón
   }
 });
   </script>
